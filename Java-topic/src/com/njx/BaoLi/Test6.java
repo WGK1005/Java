@@ -6,54 +6,58 @@ public class Test6 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int  A= sc.nextInt();
-        int  B= sc.nextInt();
-        int  C= sc.nextInt();
 
-        for(int i = 0; i < n; i++) A[i] = sc.nextInt();
-        for(int i = 0; i < n; i++) B[i] = sc.nextInt();
-        for(int i = 0; i < n; i++) C[i] = sc.nextInt();
+        // Initialize arrays
+        int[] A = new int[n];
+        int[] B = new int[n];
+        int[] C = new int[n];
 
+        // Read input for arrays A, B, and C
+        for (int i = 0; i < n; i++) A[i] = sc.nextInt();
+        for (int i = 0; i < n; i++) B[i] = sc.nextInt();
+        for (int i = 0; i < n; i++) C[i] = sc.nextInt();
+
+        // Sort arrays A and C for binary search
         Arrays.sort(A);
         Arrays.sort(C);
 
         long ans = 0;
-        for(int i = 0; i < n; i++){
-            int b= B[i];
-            int countA = lowerBound(A,b);
-            int countC = n - upperBound(C,b);
+        for (int i = 0; i < n; i++) {
+            int b = B[i];
 
-            ans += (long)countA * countC;
+            // Count elements in A less than b
+            int countA = lowerBound(A, b);
+
+            // Count elements in C greater than b
+            int countC = n - upperBound(C, b);
+
+            // Multiply counts to get valid triplets for this B[i]
+            ans += (long) countA * countC;
         }
 
         System.out.println(ans);
     }
 
-    static int lowerBound(int[] arr,int target){
-
-        int l=0,r=arr.length;
-
-        while(l<r){
-            int mid=(l+r)/2;
-            if(arr[mid]<target) l=mid+1;
-            else r=mid;
+    // Find the first index where arr[index] >= target
+    static int lowerBound(int[] arr, int target) {
+        int l = 0, r = arr.length;
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (arr[mid] < target) l = mid + 1;
+            else r = mid;
         }
-
         return l;
     }
 
-    static int upperBound(int[] arr,int target){
-
-        int l=0,r=arr.length;
-
-        while(l<r){
-            int mid=(l+r)/2;
-            if(arr[mid]<=target) l=mid+1;
-            else r=mid;
+    // Find the first index where arr[index] > target
+    static int upperBound(int[] arr, int target) {
+        int l = 0, r = arr.length;
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (arr[mid] <= target) l = mid + 1;
+            else r = mid;
         }
-
         return l;
-        }
 
     }
 }
