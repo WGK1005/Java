@@ -3,9 +3,64 @@ package com.njx.DP;
 import java.util.*;
 
 public class Test1 {
+    static int n, m;
+    static char[][] g = new char[6][6];
+    static int ans = 0;
+
+    static void dfs(int pos) {
+
+        // 所有格子填完
+        if (pos == n * m) {
+            ans++;
+            return;
+        }
+
+        int i = pos / m;
+        int j = pos % m;
+
+        // 放 O
+        g[i][j] = 'O';
+        dfs(pos + 1);
+
+        // 尝试放 X
+        g[i][j] = 'X';
+
+        if (check(i, j)) {
+            dfs(pos + 1);
+        }
+
+    }
+
+    // 检查是否合法
+    static boolean check(int i, int j) {
+
+        // 横向检查
+        if (j >= 2) {
+            if (g[i][j] == 'X' && g[i][j - 1] == 'X' && g[i][j - 2] == 'X') {
+                return false;
+            }
+        }
+
+        // 纵向检查
+        if (i >= 2) {
+            if (g[i][j] == 'X' && g[i - 1][j] == 'X' && g[i - 2][j] == 'X') {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
 
+        n = sc.nextInt();
+        m = sc.nextInt();
+
+        dfs(0);
+
+        System.out.println(ans);
     }
 }
 /*
