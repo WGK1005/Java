@@ -4,17 +4,31 @@ import java.util.*;
 
 public class Test3 {
     public static void main(String[] args) {
-
+        Scanner scan = new Scanner(System.in);
+        //在此输入您的代码...
+        int n = scan.nextInt();
+        int k = scan.nextInt();
+        int nk=k;
+        String s = scan.next();
+        LinkedList<Character> list=new LinkedList<>();
+        for(int i=0;i<s.length();i++){
+            while(!list.isEmpty()&&s.charAt(i)<list.getLast()&&nk>0){
+                list.removeLast();
+                nk--;
+            }
+            list.addLast(s.charAt(i));
+        }
+        for (int j = 0; j < n-k; j++) {
+            System.out.print(list.removeFirst());
+        }
+        scan.close();
     }
 }
 /*
-作为一位繁忙的程序员，小蓝经常需要在N座城市之间来回穿梭。他准备购买一辆电动车出行，但是担心电动车电量不足。
-为了描述方便，我们把 N 座城市编号 1 至 N。城市之间一共有M条双向高速公路相连。其中第条连接u号城市和号城市，耗费w个单位的电量。
-假设小蓝可以在出发城市，以及任何中途经过的城市充满电。小蓝想知道，如果希望从任意城市开电动车到任意另一个城市，都可以找到一条由若干高速公路组成路径，使得不需要在任何高速公路内补充电量，那么这台电动车至少需要多少电量？
-输入描述
-第一行包含两个整数 N 和 M。
-以下 M 行，每行包含 3 个整数 ui、和 w。
-输出描述
-一个整数，代表答案。
-如果存在两个城市不能通过高速公路相互到达，输出－1。
+给定一个由大写字母组成的长度为的字符串，请在字符串中删除 m 个字符，使得剩下的字符串的字典序最小。
+输入格式
+输入的第一行包含两个整数n,m，用一个空格分隔。
+第二行包含一个长度为n的字符串。
+输出格式
+输出一行包含一个长为n－m的字符串，表示答案。
  */
